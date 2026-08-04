@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fruit_zipnerf"
+version = "0.1.0"
+description = "FruitNeRF's semantic head on a ZipNeRF backbone, as a nerfstudio method."
+requires-python = ">=3.8"
+
+# Deliberately no dependency pins: this plugin is installed into an existing
+# nerfstudio container (nerfstudio 1.1.5 / torch 2.1.2+cu118) alongside
+# zipnerf-pytorch and FruitNeRF_115, both installed from source. Pinning here
+# would risk pip resolving over that pinned stack.
+dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["fruit_zipnerf*"]
+
+[project.entry-points.'nerfstudio.method_configs']
+fruit_zipnerf = 'fruit_zipnerf.fruit_zipnerf_config:fruit_zipnerf_method'
