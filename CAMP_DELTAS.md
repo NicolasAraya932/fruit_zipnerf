@@ -53,6 +53,7 @@ Reading only the first block gives the wrong recipe.
 | `net_depth_viewdirs = 3`, `skip_layer_dir = 2` | Official calls this the change that "decreases floaters substantially". Set on `NerfMLP` — the port only gin-registers `NerfMLP`/`PropMLP`, not the base `MLP`, and `PropMLP` has `disable_rgb=True` so its view branch is never built. |
 | `bg_intensity_range = (0, 1)` | Port defaults to `(1, 1)`, a fixed white background. |
 | grid weight decay strength | camp's `param_regularizers` `(0.1, mean, 2, 1)` evaluates to `0.05 * mean(grid**2)`; the port's `hash_decay` omits the `0.5`, so its `0.1` regularizes 2× harder. `360_camp.gin` sets `hash_decay_mults = 0.05`. Not exact — see "Approximate" below. |
+| `enable_grid_c2f` + resolution schedule | Coarse-to-fine hash-grid annealing. Implemented in `internal/grid_c2f.py`. Two subtleties preserved: the weight scales the optimizer **update** (camp chains it after Adam — scaling the raw gradient would be near-inert under Adam's normalization), and this repo packs all levels into one `embeddings` tensor, so the blend is applied per level slice rather than by masking separate parameters. `scale_supersample` is derived as `1/log2(per_level_scale)` = 1.0, matching camp. Off by default; enabled in `360_camp.gin`. |
 
 All of the above live in `zipnerf-pytorch/configs/360_camp.gin`, kept separate
 from `360.gin` so arXiv-v1 behaviour stays reproducible. Code-level defaults are
@@ -84,7 +85,6 @@ unchanged, so existing runs reproduce bit-identically.
 
 | Feature | Notes |
 |---|---|
-| `enable_grid_c2f` + `grid_c2f_resolution_schedule_def` | Coarse-to-fine hash-grid annealing. The largest remaining item; genuinely absent, needs a real port. |
 | `unscented_mip_basis = 'hexify'`, `unscented_scale_mult = 0.5` | Alternative multisampling basis. Absent. |
 | `scene_bbox` | Absent. |
 | `rad_mult_min` / `rad_mult_max` | Absent. |
@@ -101,9 +101,28 @@ mip-NeRF 360, PSNR:
 
 Within 0.1–0.8 dB, above the paper on kitchen.
 
+## Verification
+
+`zipnerf-pytorch/tests/test_camp_equivalence.py` (6 tests, all passing):
+
+- `power_ladder` against its closed form (max error 1.2e-07), saturation limits,
+  special cases `p ∈ {1, 0, ±inf}`, monotonicity, gradient flow.
+- `anti_interlevel_loss` == camp's `spline_interlevel_loss` (max difference
+  0.0 – 5.96e-08 over three interval/blur configurations).
+- Coarse-to-fine weight schedule against camp's `cosine_sequential` window,
+  including clamping and monotonicity in step.
+- Coarse-to-fine scales the update, not the gradient: a zero-weight level does
+  not move through a simulated optimizer step while an active one moves fully.
+
+End-to-end on cherry ds2 (seed 42, 200 iterations, c2f enabled): between the
+step-50 and step-199 checkpoints, grid levels 4096 and 8192 — exactly the two
+whose c2f weight is 0 at that point — are **bit-identical** (`max|Δ| = 0.0`),
+while all eight active levels changed.
+
 ## Caveat on measurement
 
-`360_camp.gin` has been verified to *train* (200-iteration smoke run on cherry
-ds2, no errors, losses finite and decreasing). It has **not** been shown to
-improve reconstruction quality — 200 iterations measures nothing. Any quality
-claim needs a full-length run against the `fruit_nerf` baseline.
+Everything above establishes that the ports are *faithful* and that the config
+*trains* — smoke runs of 150–300 iterations, no errors, losses finite and
+decreasing. None of it shows improved reconstruction quality; a few hundred
+iterations measures nothing. Any quality claim needs a full-length run against
+the `cherry_sift_ds2/fruit_nerf/run_100k` baseline.
