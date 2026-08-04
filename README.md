@@ -1,5 +1,7 @@
 # fruit_zipnerf
 
+ZipNeRF base model instead of Nerfacto for FruitNeRF.
+
 FruitNeRF's binary semantic head on a **ZipNeRF** backbone, registered as a
 nerfstudio method (`fruit_zipnerf`).
 
