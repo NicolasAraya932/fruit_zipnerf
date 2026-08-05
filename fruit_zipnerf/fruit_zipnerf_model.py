@@ -87,6 +87,17 @@ class FruitZipNerfModel(ZipNerfModel):
         density = final["density"]
         outputs["density"] = density if density.dim() == weights.dim() + 1 else density[..., None]
 
+        # Per-sample rendering weight T_i * alpha_i, in the same [..., S, 1] shape as
+        # density. This is what nerfstudio's exporter thresholds when it filters a
+        # point cloud by opacity, except that it only ever sees the ray-level SUM
+        # (the accumulation / rgba alpha). The per-sample peak separates a real
+        # surface, where one sample carries the weight, from a floater smeared along
+        # the ray -- both of which can sum to the same accumulation. Diagnostic only:
+        # detached, and never entering loss_dict.
+        # weights is [..., S] -- the semantics composite below relies on that, since it
+        # broadcasts weights[..., None] against semantics [..., S, C].
+        outputs["weights"] = weights.detach()[..., None]
+
         semantics = final["semantics"]
         semantic_weights = weights if self.config.pass_semantic_gradients else weights.detach()
         # Alpha-composite the per-sample logits with the same weights used for RGB.
