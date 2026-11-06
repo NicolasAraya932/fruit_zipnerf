@@ -1,0 +1,327 @@
+{
+ "index_version": 1,
+ "generated": "2026-10-13 12:36",
+ "generator": "/home/sir3po/Desktop/Repos/InvNeRF-Seg/scripts/repo_index/build_repo_indexes.py",
+ "folder": "fruit_zipnerf",
+ "path_host": "/home/sir3po/Desktop/Repos/fruit_zipnerf",
+ "path_container": "/workspace/Desktop/Repos/fruit_zipnerf",
+ "kind": "git_repo",
+ "summary": "fruit_zipnerf: ZipNeRF base model instead of Nerfacto for FruitNeRF.",
+ "registry": {
+  "role": "method_package",
+  "status": "active",
+  "notes": [
+   "FruitNeRF's binary semantic head on a ZipNeRF backbone, registered as the nerfstudio method 'fruit_zipnerf'.",
+   "pip-installed (not repo-sourced), so --fruit-nerf-repo does not point at it; the import is what matters.",
+   "Depends on /workspace/Desktop/Repos/zipnerf-pytorch for the backbone and on Nerfstudio_Patch for the frozen contract.",
+   "Emits accumulation, depth, per-sample density in [..., S, 1] and semantics -- the contract InvNeRF-Seg's cloud generator consumes.",
+   "RESUME.md in the repo root is the entry point; CAMP_DELTAS.md audits the camp_zipnerf port."
+  ]
+ },
+ "git": {
+  "branch": "main",
+  "head": "08d7d17",
+  "last_commit_date": "2026-08-18",
+  "last_commit_subject": "Add a beamer diagram of the Nerfacto to ZipNeRF backbone swap",
+  "remote": "git@github.com:NicolasAraya932/fruit_zipnerf.git",
+  "commits": 9
+ },
+ "stats": {
+  "files_indexed_tree": 35,
+  "size_indexed_tree": "1.8 MB",
+  "files_in_skipped_dirs": 87,
+  "listed_files": 22,
+  "top_extensions": {
+   ".py": 7,
+   ".pdf": 5,
+   ".md": 3,
+   "(none)": 2,
+   ".aux": 2,
+   ".log": 2,
+   ".nav": 2,
+   ".out": 2,
+   ".snm": 2,
+   ".tex": 2,
+   ".toc": 2,
+   ".txt": 1
+  }
+ },
+ "top_level": [
+  {
+   "path": "fruit_zipnerf/",
+   "files": 5,
+   "size": "14.0 KB",
+   "has_code": true
+  },
+  {
+   "path": "presentation/",
+   "files": 23,
+   "size": "1.7 MB",
+   "has_code": true
+  },
+  {
+   "path": ".git/",
+   "files": 82,
+   "skipped": true
+  }
+ ],
+ "entry_points": {
+  "console_scripts": [],
+  "runnable_scripts": []
+ },
+ "files": [
+  {
+   "path": "CAMP_DELTAS.md",
+   "size": "7.5 KB",
+   "modified": "2026-08-04",
+   "title": "Official `camp_zipnerf` vs `zipnerf-pytorch`",
+   "headings": [
+    "Why the official cannot be used directly",
+    "A trap in the official config",
+    "Status of each delta",
+    "Ported",
+    "Already present — no port needed",
+    "Not applicable to this recipe",
+    "Approximate, not exact",
+    "Still missing",
+    "Reproduction quality of the port (upstream's own numbers)",
+    "Verification",
+    "Caveat on measurement"
+   ],
+   "description": "Audit performed 2026-08-04 against:"
+  },
+  {
+   "path": "README.md",
+   "size": "4.9 KB",
+   "modified": "2026-08-04",
+   "title": "fruit_zipnerf",
+   "headings": [
+    "Why not the official `camp_zipnerf`?",
+    "Architecture",
+    "Data",
+    "Install",
+    "CUDA backend for zipnerf-pytorch",
+    "Train",
+    "Notable knobs",
+    "Upstream changes this depends on"
+   ],
+   "description": "ZipNeRF base model instead of Nerfacto for FruitNeRF."
+  },
+  {
+   "path": "RESUME.md",
+   "size": "6.6 KB",
+   "modified": "2026-08-04",
+   "title": "RESUME — instructions for the next session",
+   "headings": [
+    "Read these first",
+    "Where things stand",
+    "The run that should be finishing",
+    "Check these before believing any result",
+    "Remaining work (task 6)",
+    "Traps that already cost time — do not rediscover these",
+    "Standing rules",
+    "Honest status line"
+   ],
+   "description": "Written 2026-08-04, at the point where the 100k `fruit_zipnerf` run was about to start. Read this **before** touching anything."
+  },
+  {
+   "path": "2026-08-04-182023-check-memory-invnerf-seg-and-also-check-the-last.txt",
+   "size": "117.5 KB",
+   "modified": "2026-08-04",
+   "description": "▐▛███▜▌ Claude Code v2.1.221"
+  },
+  {
+   "path": "LICENSE",
+   "size": "1.0 KB",
+   "modified": "2026-08-04",
+   "description": "MIT License"
+  },
+  {
+   "path": "pyproject.toml",
+   "size": "733 B",
+   "modified": "2026-08-04",
+   "top_keys": [
+    "build-system",
+    "requires",
+    "build-backend",
+    "project",
+    "name",
+    "version",
+    "description",
+    "requires-python",
+    "dependencies",
+    "tool.setuptools.packages.find",
+    "include",
+    "fruit_zipnerf"
+   ],
+   "description": "FruitNeRF's semantic head on a ZipNeRF backbone, as a nerfstudio method."
+  },
+  {
+   "path": ".gitignore",
+   "size": "4.6 KB",
+   "modified": "2026-08-04",
+   "description": "(none) file"
+  },
+  {
+   "path": "fruit_zipnerf/__init__.py",
+   "size": "92 B",
+   "modified": "2026-08-04",
+   "description": "FruitZipNerf: FruitNeRF's semantic head on a ZipNeRF backbone."
+  },
+  {
+   "path": "fruit_zipnerf/fruit_zipnerf_config.py",
+   "size": "2.7 KB",
+   "modified": "2026-08-04",
+   "description": "FruitZipNerf method registration."
+  },
+  {
+   "path": "fruit_zipnerf/fruit_zipnerf_datamanager.py",
+   "size": "1.3 KB",
+   "modified": "2026-08-04",
+   "description": "FruitZipNerf DataManager.",
+   "defines": [
+    "FruitZipNerfDataManagerConfig",
+    "FruitZipNerfDataManager"
+   ]
+  },
+  {
+   "path": "fruit_zipnerf/fruit_zipnerf_model.py",
+   "size": "8.8 KB",
+   "modified": "2026-08-05",
+   "description": "FruitZipNerf model: ZipNeRF geometry with FruitNeRF's binary semantic head.",
+   "defines": [
+    "FruitZipNerfModelConfig",
+    "FruitZipNerfModel"
+   ]
+  },
+  {
+   "path": "fruit_zipnerf/fruit_zipnerf_pipeline.py",
+   "size": "1.1 KB",
+   "modified": "2026-08-04",
+   "description": "FruitZipNerf pipeline: ZipNeRF's pipeline with the Fruit datamanager/model.",
+   "defines": [
+    "FruitZipNerfPipelineConfig",
+    "FruitZipNerfPipeline"
+   ]
+  },
+  {
+   "path": "presentation/backbone_swap.pdf",
+   "size": "152.0 KB",
+   "modified": "2026-08-18",
+   "title": "Swapping the backbone: Nerfacto ZipNeRF - What fruit_zipnerf changes inside FruitNeRF, and what it leaves alone",
+   "pages": 5,
+   "description": "PDF: Swapping the backbone: Nerfacto ZipNeRF - What fruit_zipnerf changes inside FruitNeRF, and what it leaves alone"
+  },
+  {
+   "path": "presentation/psnr_evaluation.pdf",
+   "size": "207.6 KB",
+   "modified": "2026-08-05",
+   "title": "ZipNeRF backbone vs. FruitNeRF on cherry ds2 - PSNR evaluation of four 100k-step runs",
+   "pages": 9,
+   "description": "PDF: ZipNeRF backbone vs. FruitNeRF on cherry ds2 - PSNR evaluation of four 100k-step runs"
+  },
+  {
+   "path": "presentation/backbone_swap.tex",
+   "size": "9.4 KB",
+   "modified": "2026-08-18",
+   "title": "Swapping the backbone: Nerfacto $\\rightarrow$ ZipNeRF",
+   "frames": 4,
+   "frame_titles": [
+    "The whole change, in one picture",
+    "What the backbone actually does differently",
+    "Inside the swapped box",
+    "Honest caveat: it is not a backbone-only A/B"
+   ],
+   "description": "LaTeX main document: Swapping the backbone: Nerfacto $\\rightarrow$ ZipNeRF"
+  },
+  {
+   "path": "presentation/psnr_evaluation.tex",
+   "size": "7.3 KB",
+   "modified": "2026-08-05",
+   "title": "ZipNeRF backbone vs.\\ FruitNeRF on cherry ds2",
+   "frames": 8,
+   "frame_titles": [
+    "What was run",
+    "Final PSNR --- full eval set",
+    "All metrics, full eval set (337 frames)",
+    "PSNR over training",
+    "The SfM axis: better matching, slightly worse NeRF",
+    "Semantic F1 --- where the gain does not reach",
+    "Caveats --- read before quoting the $+1$\\,dB",
+    "Where this leaves the claim"
+   ],
+   "description": "LaTeX main document: ZipNeRF backbone vs.\\ FruitNeRF on cherry ds2"
+  },
+  {
+   "path": "presentation/figs/psnr_curves.pdf",
+   "size": "30.6 KB",
+   "modified": "2026-08-05",
+   "pages": 1,
+   "description": "PDF"
+  },
+  {
+   "path": "presentation/figs/psnr_final.pdf",
+   "size": "20.1 KB",
+   "modified": "2026-08-05",
+   "pages": 1,
+   "description": "PDF"
+  },
+  {
+   "path": "presentation/figs/semantic_f1.pdf",
+   "size": "19.7 KB",
+   "modified": "2026-08-05",
+   "pages": 1,
+   "description": "PDF"
+  },
+  {
+   "path": "presentation/scripts/psnr_data.json",
+   "size": "1.2 MB",
+   "modified": "2026-08-05",
+   "top_keys": [
+    "fruit_nerf / SIFT",
+    "fruit_zipnerf / SIFT",
+    "fruit_nerf / ALIKED",
+    "fruit_zipnerf / ALIKED"
+   ]
+  },
+  {
+   "path": "presentation/scripts/extract_wandb_metrics.py",
+   "size": "2.2 KB",
+   "modified": "2026-08-05"
+  },
+  {
+   "path": "presentation/scripts/make_figures.py",
+   "size": "4.8 KB",
+   "modified": "2026-08-05",
+   "defines": [
+    "finish"
+   ]
+  }
+ ],
+ "file_groups": [
+  {
+   "path": "presentation/",
+   "extension": "data",
+   "files": 13,
+   "extensions": {
+    ".aux": 2,
+    ".log": 2,
+    ".nav": 2,
+    ".out": 2,
+    ".snm": 2,
+    ".toc": 2
+   },
+   "size": "84.0 KB"
+  }
+ ],
+ "skipped_dirs": [
+  {
+   "path": ".git/",
+   "files": 82
+  },
+  {
+   "path": "fruit_zipnerf/__pycache__/",
+   "files": 5
+  }
+ ]
+}
